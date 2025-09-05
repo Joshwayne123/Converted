@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Conversion Tool</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f4f4f9;
+      color: #333;
+    }
+    h2 {
+      color: #444;
+    }
+    .converter {
+      background: white;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    input, select, button {
+      margin: 5px 0;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 100%;
+    }
+    button {
+      background: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .result {
+      margin-top: 10px;
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <h1>Conversion Tool</h1>
+
+  <!-- Currency Converter -->
+  <div class="converter">
+    <h2>Currency Conversion (USD → Other)</h2>
+    <select id="currencyUnit">
+      <option value="VND">VND</option>
+      <option value="EUR">EUR</option>
+      <option value="JPY">JPY</option>
+      <option value="GBP">GBP</option>
+      <option value="INR">INR</option>
+      <option value="CAD">CAD</option>
+      <option value="AUD">AUD</option>
+    </select>
+    <input type="number" id="currencyAmount" placeholder="Enter amount in USD">
+    <button onclick="convertCurrency()">Convert</button>
+    <div class="result" id="currencyResult"></div>
+  </div>
+
+  <!-- Weight Converter -->
+  <div class="converter">
+    <h2>Weight Conversion</h2>
+    <select id="weightUnit">
+      <option value="k">Kilogram → Pound</option>
+      <option value="p">Pound → Kilogram</option>
+    </select>
+    <input type="number" id="weightAmount" placeholder="Enter weight">
+    <button onclick="convertWeight()">Convert</button>
+    <div class="result" id="weightResult"></div>
+  </div>
+
+  <!-- Height Converter -->
+  <div class="converter">
+    <h2>Height Conversion</h2>
+    <select id="heightUnit">
+      <option value="m">Meter → Feet</option>
+      <option value="ft">Feet → Meter</option>
+    </select>
+    <input type="number" id="heightAmount" placeholder="Enter height">
+    <button onclick="convertHeight()">Convert</button>
+    <div class="result" id="heightResult"></div>
+  </div>
+
+  <!-- Speed Converter -->
+  <div class="converter">
+    <h2>Speed Conversion</h2>
+    <select id="speedUnit">
+      <option value="miles">Miles → Km</option>
+      <option value="km">Km → Miles</option>
+    </select>
+    <input type="number" id="speedAmount" placeholder="Enter speed">
+    <button onclick="convertSpeed()">Convert</button>
+    <div class="result" id="speedResult"></div>
+  </div>
+
+  <!-- Volume Converter -->
+  <div class="converter">
+    <h2>Volume Conversion</h2>
+    <select id="liquidUnit">
+      <option value="tsp">Teaspoon → Milliliter</option>
+      <option value="ml">Milliliter → Teaspoon</option>
+    </select>
+    <input type="number" id="liquidAmount" placeholder="Enter volume">
+    <button onclick="convertLiquid()">Convert</button>
+    <div class="result" id="liquidResult"></div>
+  </div>
+
+  <script>
+    const rates = {
+      "VND": 2400,
+      "EUR": 0.92,
+      "JPY": 145.5,
+      "GBP": 0.78,
+      "INR": 88.133,
+      "CAD": 1.382,60,
+      "AUD": 1.522,77
+    };
+
+    function convertCurrency() {
+      let unit = document.getElementById("currencyUnit").value;
+      let money = parseFloat(document.getElementById("currencyAmount").value);
+      if (!isNaN(money)) {
+        let converted = money * rates[unit];
+        document.getElementById("currencyResult").innerText = `Your money is ${converted.toFixed(2)} ${unit}`;
+      } else {
+        document.getElementById("currencyResult").innerText = "Please enter a valid number.";
+      }
+    }
+
+    function convertWeight() {
+      let unit = document.getElementById("weightUnit").value;
+      let weight = parseFloat(document.getElementById("weightAmount").value);
+      if (!isNaN(weight)) {
+        if (unit === "k") {
+          weight *= 2.20462;
+          document.getElementById("weightResult").innerText = `Your weight is ${weight.toFixed(2)} pounds`;
+        } else {
+          weight /= 2.20462;
+          document.getElementById("weightResult").innerText = `Your weight is ${weight.toFixed(2)} kilograms`;
+        }
+      }
+    }
+
+    function convertHeight() {
+      let unit = document.getElementById("heightUnit").value;
+      let height = parseFloat(document.getElementById("heightAmount").value);
+      if (!isNaN(height)) {
+        if (unit === "m") {
+          height /= 0.3048;
+          document.getElementById("heightResult").innerText = `Your height is ${height.toFixed(2)} ft`;
+        } else {
+          height *= 0.3048;
+          document.getElementById("heightResult").innerText = `Your height is ${height.toFixed(2)} m`;
+        }
+      }
+    }
+
+    function convertSpeed() {
+      let unit = document.getElementById("speedUnit").value;
+      let speed = parseFloat(document.getElementById("speedAmount").value);
+      if (!isNaN(speed)) {
+        if (unit === "miles") {
+          speed *= 1.609;
+          document.getElementById("speedResult").innerText = `Your speed is ${speed.toFixed(2)} km/h`;
+        } else {
+          speed /= 1.609;
+          document.getElementById("speedResult").innerText = `Your speed is ${speed.toFixed(2)} miles/h`;
+        }
+      }
+    }
+
+    function convertLiquid() {
+      let unit = document.getElementById("liquidUnit").value;
+      let liquid = parseFloat(document.getElementById("liquidAmount").value);
+      if (!isNaN(liquid)) {
+        if (unit === "tsp") {
+          liquid *= 5;
+          document.getElementById("liquidResult").innerText = `Your liquid volume is ${liquid.toFixed(2)} ml`;
+        } else {
+          liquid /= 5;
+          document.getElementById("liquidResult").innerText = `Your liquid volume is ${liquid.toFixed(2)} tsp`;
+        }
+      }
+    }
+  </script>
+</body>
+</html>
